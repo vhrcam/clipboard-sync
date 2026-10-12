@@ -8,9 +8,20 @@
 </head>
 <body>
   <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <defs>
-      <path id="cat-head" d="M38 46 C36 38 37 31 40 26 L41 8 L54 19 Q60 17 66 19 L79 8 L80 26 C83 31 84 38 82 46 C80 58 70 64 60 64 C50 64 40 58 38 46 Z"/>
-    </defs>
+    <symbol id="cat" viewBox="0 0 120 133">
+      <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M38 46 C36 38 37 31 40 26 L41 8 L54 19 Q60 17 66 19 L79 8 L80 26 C83 31 84 38 82 46 C80 58 70 64 60 64 C50 64 40 58 38 46 Z"/>
+        <path d="M47 61 C36 72 30 92 32 112 C33 124 40 130 50 130 L70 130 C80 130 87 124 88 112 C90 92 84 72 73 61"/>
+        <path d="M51 100 C52 112 52 122 51 130 M69 100 C68 112 68 122 69 130"/>
+        <path d="M87 122 C103 127 114 117 109 101 C106 91 110 83 117 81"/>
+        <path stroke-width="4" d="M47 52 L31 49 M47 55.5 L32 58 M73 52 L89 49 M73 55.5 L88 58"/>
+      </g>
+      <g fill="currentColor">
+        <path d="M57.5 49.5 L62.5 49.5 L60 52.5 Z"/>
+        <ellipse cx="51" cy="41" rx="3" ry="4"/>
+        <ellipse cx="69" cy="41" rx="3" ry="4"/>
+      </g>
+    </symbol>
   </svg>
 
   <section id="splash" class="splash" aria-label="CopyCat">
@@ -35,7 +46,7 @@
 
   <main id="home" class="home">
     <header class="topbar">
-      <svg class="mini-cat" viewBox="30 2 60 66" aria-hidden="true"><use href="#cat-head"/></svg>
+      <svg class="mini-cat" aria-hidden="true"><use href="#cat"/></svg>
       <span>CopyCat</span>
     </header>
 
