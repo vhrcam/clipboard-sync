@@ -22,6 +22,20 @@
         <ellipse cx="69" cy="41" rx="3" ry="4"/>
       </g>
     </symbol>
+    <symbol id="icon-laptop" viewBox="0 0 160 106">
+      <rect x="27" y="6" width="106" height="74" rx="7" fill="#fff" fill-opacity="0.035" stroke="none"/>
+      <rect x="27" y="6" width="106" height="74" rx="7"/>
+      <path d="M6 87 H154 C154 94 148 99 141 99 H19 C12 99 6 94 6 87 Z"/>
+      <path d="M67 87 Q69 91 73 91 H87 Q91 91 93 87" stroke-width="3" opacity="0.7"/>
+    </symbol>
+    <symbol id="icon-tower" viewBox="0 0 90 126">
+      <rect x="14" y="4" width="62" height="114" rx="8" fill="#fff" fill-opacity="0.035" stroke="none"/>
+      <rect x="14" y="4" width="62" height="114" rx="8"/>
+      <circle cx="45" cy="22" r="6"/>
+      <path d="M27 40 H63 M27 50 H63" stroke-width="3" opacity="0.7"/>
+      <path d="M31 80 H59 M31 88 H59 M31 96 H59" stroke-width="3" opacity="0.35"/>
+      <path d="M24 122 H34 M56 122 H66"/>
+    </symbol>
   </svg>
 
   <section id="splash" class="splash" aria-label="CopyCat">
@@ -51,17 +65,13 @@
     </header>
 
     <div class="stage">
-      <figure class="device" id="mac" data-state="idle">
+      <figure class="device" id="self" data-os="mac" data-state="idle">
         <div class="art">
-          <svg class="laptop" viewBox="0 0 160 106" aria-hidden="true">
-            <rect class="screen-glass" x="27" y="6" width="106" height="74" rx="7"/>
-            <rect x="27" y="6" width="106" height="74" rx="7"/>
-            <path d="M6 87 H154 C154 94 148 99 141 99 H19 C12 99 6 94 6 87 Z"/>
-            <path class="detail" d="M67 87 Q69 91 73 91 H87 Q91 91 93 87"/>
-          </svg>
+          <svg class="icon laptop" aria-hidden="true"><use href="#icon-laptop"/></svg>
+          <svg class="icon tower" aria-hidden="true"><use href="#icon-tower"/></svg>
         </div>
         <figcaption>
-          <span class="name">Your Mac</span>
+          <span class="name"></span>
           <span class="status" data-state="idle">
             <span class="dots"><i></i><i></i><i></i></span>
             <span class="spinner"></span>
@@ -70,21 +80,15 @@
         </figcaption>
       </figure>
 
-      <div class="wire" id="wire" data-state="idle" aria-hidden="true"></div>
+      <div class="wire" id="wire" data-state="idle" aria-hidden="true"><span class="packet"></span></div>
 
-      <figure class="device" id="pc" data-state="idle">
+      <figure class="device" id="peer" data-os="windows" data-state="idle">
         <div class="art">
-          <svg class="tower" viewBox="0 0 90 126" aria-hidden="true">
-            <rect class="screen-glass" x="14" y="4" width="62" height="114" rx="8"/>
-            <rect x="14" y="4" width="62" height="114" rx="8"/>
-            <circle cx="45" cy="22" r="6"/>
-            <path class="detail" d="M27 40 H63 M27 50 H63"/>
-            <path class="detail faint" d="M31 80 H59 M31 88 H59 M31 96 H59"/>
-            <path d="M24 122 H34 M56 122 H66"/>
-          </svg>
+          <svg class="icon laptop" aria-hidden="true"><use href="#icon-laptop"/></svg>
+          <svg class="icon tower" aria-hidden="true"><use href="#icon-tower"/></svg>
         </div>
         <figcaption>
-          <span class="name">Your PC</span>
+          <span class="name"></span>
           <span class="status" data-state="idle">
             <span class="dots"><i></i><i></i><i></i></span>
             <span class="spinner"></span>
@@ -94,7 +98,32 @@
       </figure>
     </div>
 
-    <p class="message" id="message" aria-live="polite">Not connected</p>
+    <div class="bottom">
+      <p class="message" id="message" aria-live="polite"></p>
+      <div class="pairing" id="pairing" hidden>
+        <p class="pairing-title">Pair with <span id="pair-name"></span>?</p>
+        <p class="pairing-hint">Check that this code matches on both computers.</p>
+        <p class="code" id="pair-code"></p>
+        <div class="actions" id="pair-actions">
+          <button class="btn ghost" id="pair-no" type="button">Not now</button>
+          <button class="btn primary" id="pair-yes" type="button">Pair</button>
+        </div>
+        <p class="pairing-wait" id="pair-wait" hidden>Waiting for the other computer…</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span id="self-ip"></span>
+        <span class="sep">·</span>
+        <button class="link" id="show-connect" type="button">Connect by IP</button>
+        <form class="connect" id="connect-form" hidden>
+          <input id="connect-input" placeholder="Other computer's IP" autocomplete="off" spellcheck="false" aria-label="Other computer's IP address">
+          <button class="btn small" type="submit">Connect</button>
+        </form>
+      </div>
+      <button class="link" id="unpair" type="button" hidden>Unpair</button>
+    </footer>
   </main>
 
   <script src="app.js"></script>
