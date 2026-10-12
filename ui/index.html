@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyCat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <defs>
+      <path id="cat-head" d="M38 46 C36 38 37 31 40 26 L41 8 L54 19 Q60 17 66 19 L79 8 L80 26 C83 31 84 38 82 46 C80 58 70 64 60 64 C50 64 40 58 38 46 Z"/>
+    </defs>
+  </svg>
+
+  <section id="splash" class="splash" aria-label="CopyCat">
+    <div class="lockup">
+      <h1 class="wordmark" aria-label="CopyCat">
+        <span style="--i:0">C</span><span style="--i:1">o</span><span style="--i:2">p</span><span style="--i:3">y</span><span style="--i:4">C</span><span style="--i:5">a</span><span style="--i:6">t</span>
+      </h1>
+      <svg class="cat" viewBox="0 0 120 133" aria-hidden="true">
+        <path class="stroke" pathLength="1" style="--d:1.25s" d="M38 46 C36 38 37 31 40 26 L41 8 L54 19 Q60 17 66 19 L79 8 L80 26 C83 31 84 38 82 46 C80 58 70 64 60 64 C50 64 40 58 38 46 Z"/>
+        <path class="stroke" pathLength="1" style="--d:1.45s" d="M47 61 C36 72 30 92 32 112 C33 124 40 130 50 130 L70 130 C80 130 87 124 88 112 C90 92 84 72 73 61"/>
+        <path class="stroke" pathLength="1" style="--d:1.75s" d="M51 100 C52 112 52 122 51 130 M69 100 C68 112 68 122 69 130"/>
+        <path class="stroke tail" pathLength="1" style="--d:1.85s" d="M87 122 C103 127 114 117 109 101 C106 91 110 83 117 81"/>
+        <path class="stroke whisker" pathLength="1" style="--d:2.05s" d="M47 52 L31 49 M47 55.5 L32 58 M73 52 L89 49 M73 55.5 L88 58"/>
+        <path class="nose" d="M57.5 49.5 L62.5 49.5 L60 52.5 Z"/>
+        <ellipse class="eye" cx="51" cy="41" rx="3" ry="4"/>
+        <ellipse class="eye" cx="69" cy="41" rx="3" ry="4"/>
+      </svg>
+    </div>
+    <div class="streak" aria-hidden="true"></div>
+    <p class="tagline">Copy here · Paste there</p>
+  </section>
+
+  <main id="home" class="home">
+    <header class="topbar">
+      <svg class="mini-cat" viewBox="30 2 60 66" aria-hidden="true"><use href="#cat-head"/></svg>
+      <span>CopyCat</span>
+    </header>
+
+    <div class="stage">
+      <figure class="device" id="mac" data-state="idle">
+        <div class="art">
+          <svg class="laptop" viewBox="0 0 160 106" aria-hidden="true">
+            <rect class="screen-glass" x="27" y="6" width="106" height="74" rx="7"/>
+            <rect x="27" y="6" width="106" height="74" rx="7"/>
+            <path d="M6 87 H154 C154 94 148 99 141 99 H19 C12 99 6 94 6 87 Z"/>
+            <path class="detail" d="M67 87 Q69 91 73 91 H87 Q91 91 93 87"/>
+          </svg>
+        </div>
+        <figcaption>
+          <span class="name">Your Mac</span>
+          <span class="status" data-state="idle">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="spinner"></span>
+            <svg class="check" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13"/><path pathLength="1" d="M8.5 14.5 L12.3 18.2 L19.8 10.2"/></svg>
+          </span>
+        </figcaption>
+      </figure>
+
+      <div class="wire" id="wire" data-state="idle" aria-hidden="true"></div>
+
+      <figure class="device" id="pc" data-state="idle">
+        <div class="art">
+          <svg class="tower" viewBox="0 0 90 126" aria-hidden="true">
+            <rect class="screen-glass" x="14" y="4" width="62" height="114" rx="8"/>
+            <rect x="14" y="4" width="62" height="114" rx="8"/>
+            <circle cx="45" cy="22" r="6"/>
+            <path class="detail" d="M27 40 H63 M27 50 H63"/>
+            <path class="detail faint" d="M31 80 H59 M31 88 H59 M31 96 H59"/>
+            <path d="M24 122 H34 M56 122 H66"/>
+          </svg>
+        </div>
+        <figcaption>
+          <span class="name">Your PC</span>
+          <span class="status" data-state="idle">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="spinner"></span>
+            <svg class="check" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13"/><path pathLength="1" d="M8.5 14.5 L12.3 18.2 L19.8 10.2"/></svg>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="message" id="message" aria-live="polite">Not connected</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
