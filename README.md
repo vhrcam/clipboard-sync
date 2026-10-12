@@ -10,10 +10,10 @@ Copy on your Mac, paste on your Windows PC, and the other way around. CopyCat ke
 
 | Computer | File |
 |---|---|
-| Mac (Apple Silicon, M1 or newer) | [CopyCat-mac.zip](https://github.com/vhrcam/clipboard-sync/releases/latest/download/CopyCat-mac.zip) |
-| Windows 10 / 11 | [CopyCat-windows.exe](https://github.com/vhrcam/clipboard-sync/releases/latest/download/CopyCat-windows.exe) |
+| Mac (Apple Silicon, M1 or newer) | [CopyCat-mac.zip](https://github.com/vhrcam/copycat/releases/latest/download/CopyCat-mac.zip) |
+| Windows 10 / 11 | [CopyCat-windows.exe](https://github.com/vhrcam/copycat/releases/latest/download/CopyCat-windows.exe) |
 
-All versions are on the [Releases page](https://github.com/vhrcam/clipboard-sync/releases).
+All versions are on the [Releases page](https://github.com/vhrcam/copycat/releases).
 
 ### First launch on a Mac
 
