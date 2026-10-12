@@ -1,3 +1,5 @@
-websockets
-pyperclip
-pywebview
+cryptography==50.0.2
+pyperclip==1.11.0
+pywebview==6.2.1
+websockets==17.2
+zeroconf==0.151.5
