@@ -1,64 +1,88 @@
 # CopyCat
 
-Copy on your Mac, paste on your Windows PC, and the other way around. CopyCat keeps both clipboards in sync over your home Wi-Fi. No cloud, no account, no third-party service.
+Copy on your Mac, paste on your Windows PC, and the other way around. CopyCat keeps two computers' clipboards in sync over your Wi-Fi. No cloud, no account, and everything it sends is encrypted.
 
 | Launch | Connected |
 |---|---|
 | ![CopyCat launch screen](screenshots/launch.png) | ![Mac and PC both connected](screenshots/connected.png) |
 
-## What it does
+## Download
 
-- **Launch animation:** the CopyCat wordmark fades in letter by letter, then a line-art cat draws itself, blinks and swishes its tail.
-- **Connection screen:** your Mac and your PC side by side. Grey dots mean not connected, a spinner means connecting, and a green check means connected.
-- **Text sync:** code, links, paragraphs, anything you copy as text.
-- **Both directions:** Mac to Windows and Windows to Mac.
-- **Auto-reconnect:** the PC retries every 5 seconds if the connection drops.
-- **Echo prevention:** text that just arrived is never sent back.
+| Computer | File |
+|---|---|
+| Mac (Apple Silicon, M1 or newer) | [CopyCat-mac.zip](https://github.com/vhrcam/clipboard-sync/releases/latest/download/CopyCat-mac.zip) |
+| Windows 10 / 11 | [CopyCat-windows.exe](https://github.com/vhrcam/clipboard-sync/releases/latest/download/CopyCat-windows.exe) |
+
+All versions are on the [Releases page](https://github.com/vhrcam/clipboard-sync/releases).
+
+### First launch on a Mac
+
+1. Unzip `CopyCat-mac.zip` and drag **CopyCat** into **Applications**.
+2. Open it. macOS says it can't verify the app, because CopyCat isn't signed with a paid Apple developer account. Click **Done**.
+3. Open **System Settings → Privacy & Security**, scroll down to "CopyCat was blocked", and click **Open Anyway**.
+4. When CopyCat asks to find devices on your local network, click **Allow**. This is how it finds your other computer.
+
+### First launch on Windows
+
+1. Run `CopyCat-windows.exe`.
+2. If "Windows protected your PC" appears, click **More info → Run anyway**. It appears because the app isn't code-signed.
+3. When Windows Firewall asks, tick **Private networks** and click **Allow**.
+
+## Pairing
+
+1. Open CopyCat on both computers, on the same Wi-Fi.
+2. They find each other on their own and both show a 6-digit code.
+3. Check that the codes match, then click **Pair** on both.
+
+That's it. From then on the two reconnect automatically whenever both are open. Copy on one and paste on the other, and a dot travels along the line each time something syncs.
+
+**If they don't find each other** (school and work Wi-Fi often block this): click **Connect by IP** at the bottom of one computer and type the IP shown at the bottom-left of the other.
+
+**To stop syncing with a computer**, click **Unpair** in the bottom-right corner.
 
 ## How it works
 
-- The Mac runs a WebSocket server and the PC connects to it.
-- Each side checks its clipboard every 0.3 seconds and sends anything new as a small JSON message.
-- Text received from the other computer is remembered before it's written to the clipboard, so it doesn't bounce back.
-- The app window is built with [pywebview](https://pywebview.flowrl.com/): Python runs the sync and an HTML/CSS screen shows the status, in a native window on both macOS and Windows.
+- Each copy of CopyCat runs a small WebSocket server and announces itself on the local network with mDNS (`_copycat._tcp`), the same way AirPlay and printers are found.
+- Every 0.3 seconds it checks the clipboard. New text is encrypted and sent to the paired computer, which writes it to its own clipboard.
+- Text that just arrived is remembered before it's written, so it never bounces back.
+- The window is HTML/CSS shown with [pywebview](https://pywebview.flowrl.com/), so the same Python code runs the app on macOS and Windows.
 
-## Run it
+## Security
 
-Set up once on each computer:
+- Each computer creates its own key pair on first launch (X25519).
+- When two computers connect, they agree on a fresh key for that session and encrypt everything with ChaCha20-Poly1305.
+- The pairing code is calculated from both computers' keys. If someone on the network tried to sit in the middle, the two screens would show different codes.
+- After pairing, each computer only trusts the other's exact key. A device that copies the name or the public key but doesn't have the secret key gets disconnected.
+- Nothing leaves your local network. Settings live in `~/Library/Application Support/CopyCat` (Mac) or `%APPDATA%\CopyCat` (Windows): `identity.key`, `paired.json` and `copycat.log`.
+
+## Run from source
 
 ```
 python3 -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-Open the app:
-
-```
 python app.py
 ```
 
-Terminal version of the sync, while it's being connected to the app. On the Mac:
+Run the tests:
 
 ```
-python clipboard.py server
+pip install pytest
+python -m pytest tests
 ```
 
-It prints the Mac's IP address. On the PC:
+Build the app yourself (makes `dist/CopyCat.app` on a Mac, `dist/CopyCat.exe` on Windows):
 
 ```
-python clipboard.py client <mac-ip>
+pip install pyinstaller
+pyinstaller CopyCat.spec
 ```
 
-## Status
-
-- [x] Clipboard sync engine (`clipboard.py`)
-- [x] App window, launch animation and connection screen (the statuses are a demo for now)
-- [ ] Connect the screen to the real sync
-- [ ] Package as a double-click `.app` and `.exe`
+GitHub Actions runs the tests and builds both versions on every push. Pushing a tag like `v1.0.0` publishes a release with both downloads attached.
 
 ## Limitations
 
 - Text only (no images or files yet)
-- Both computers must be on the same Wi-Fi
-- No encryption yet, so use it on your home network, not public Wi-Fi
+- Both computers must be on the same network
+- The window has to stay open (you can minimize it). Closing it stops syncing.
+- The Mac download is for Apple Silicon. Intel Macs can run it from source.
